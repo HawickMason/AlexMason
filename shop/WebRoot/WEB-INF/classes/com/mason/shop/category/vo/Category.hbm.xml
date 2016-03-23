@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.mason.shop.category.vo.Category" table="Category">
+		
+		<id name="cid">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="cname"></property>
+		
+		<!-- 配置二级分类的集合 -->
+		<!-- 
+			这里需要设置懒加载(默认为true)将其关闭，又因set中元素无序(不重复)，所以需要设置 order-by="csid"使得页面点击一级分类返回页面
+			每次都改变不会
+		-->
+		<set name="categorySeconds" lazy="false" order-by="csid">
+			<key column="cid"></key>
+			<one-to-many class="com.mason.shop.categorysecond.vo.CategorySecond"/>
+		</set>
+	</class>
+</hibernate-mapping>

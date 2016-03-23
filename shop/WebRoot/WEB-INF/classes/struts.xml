@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	
+	<constant name="struts.devMode" value="false"></constant>
+	 
+	<package name="shop" extends="struts-default" namespace="/">
+	
+		<global-results>
+			<!-- 注册完成(未激活)视图 -->
+			<result name="msg">/WEB-INF/jsp/msg.jsp</result>
+			<result name="login">/WEB-INF/jsp/login.jsp</result>
+		</global-results>
+	
+		<!-- 配置首页访问的Action -->
+		<action name="index" class="indexAction">
+			<result name="index">/WEB-INF/jsp/index.jsp</result>
+		</action>
+		
+		<!-- 配置用户模块的Action -->
+		<action name="user_*" class="userAction" method="{1}">
+			<result name="registPage">/WEB-INF/jsp/regist.jsp</result>
+			<!-- 配置INPUT逻辑视图(配合Validator使用) -->
+			<result name="input">/WEB-INF/jsp/regist.jsp</result>	
+			<!-- 登录页面 -->
+			<result name="loginPage">/WEB-INF/jsp/login.jsp</result>				
+			<result name="loginSucess" type="redirectAction">index</result>		
+			<!-- 用户退出 -->
+			<result name="quit" type="redirectAction">index</result>	
+			<!-- 验证码错误时的跳转 -->
+			<result name="checkcodeFail">/WEB-INF/jsp/regist.jsp</result>
+		</action>
+		
+		<!-- 配置商品模块的Action -->
+		<action name="product_*" class="productAction" method="{1}">
+			<result name="findByPid">/WEB-INF/jsp/product.jsp</result>
+			<result name="findByCid">/WEB-INF/jsp/productList.jsp</result>
+			<result name="findByCsid">/WEB-INF/jsp/productList.jsp</result>
+		</action>
+		
+		<!-- 配置验证码的Action -->
+		<action name="checkImg" class="checkImgAction"></action>
+		
+		<!-- 配置购物车模块的Action -->
+		<action name="cart_*" class="cartAction" method="{1}">
+			<result name="addCartItem">/WEB-INF/jsp/cartMiddlePage.jsp</result>		
+			<result name="showCart">/WEB-INF/jsp/cart.jsp</result>
+		</action>
+		
+		<!-- 配置订单模块的Action -->
+		<action name="order_*" class="orderAction" method="{1}">
+			<result name="saveSuccess">/WEB-INF/jsp/order.jsp</result>
+			<result name="findByUidSuccess">/WEB-INF/jsp/orderList.jsp</result>
+			<result name="findByOidSuccess">/WEB-INF/jsp/order.jsp</result>			
+		</action>
+		
+	</package>
+	
+</struts>
